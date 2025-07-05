@@ -1,0 +1,13 @@
+[project]
+name = "ghphairproject"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.3",
+    "pandas>=2.3.0",
+    "plotly>=6.2.0",
+    "pygwalker>=0.4.9.15",
+    "streamlit>=1.46.1",
+]
