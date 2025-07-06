@@ -8,7 +8,7 @@ st.set_page_config(layout="wide", page_title="Tensile Strength Analysis")
 st.title("📊 Tensile Strength Analysis Dashboard")
 
 # Load CSV
-file_path = "Combined_Sample_Data.csv"
+file_path = "Combined_Sample_Data_Sigfigs.csv"
 df = pd.read_csv(file_path)
 
 # Explicit sample IDs and tab labels
@@ -42,7 +42,7 @@ for i, sample in enumerate(sample_ids):
         fig = px.line(melted_df, x="Time", y="Tensile Strength", color="Treatment",
                       title=f"{tab_labels[i]} - Tensile Strength Over Time")
 
-        # Add red marker points (only show label on hover)
+        # Add red marker points
         fig.add_trace(go.Scatter(
             x=max_points["Time"],
             y=max_points["Tensile Strength"],
@@ -56,9 +56,11 @@ for i, sample in enumerate(sample_ids):
         fig.update_layout(xaxis=dict(range=[0, max_time]), height=400, legend_title_text="Treatment")
         st.plotly_chart(fig, use_container_width=True)
 
-        # Show individual sample DataFrame
-        st.markdown("**🔍 Sample Data:**")
-        st.dataframe(df[['Time'] + sample_cols], use_container_width=True)
+        # Collapsible sample data
+        with st.expander(f"🔍 View {tab_labels[i]} Raw Data"):
+            sample_df = df[['Time'] + sample_cols].copy()
+            formatted_sample_df = sample_df.map(lambda x: f"{x:.4g}" if isinstance(x, (float, int)) else x)
+            st.dataframe(formatted_sample_df, use_container_width=True)
 
 # Static max data
 max_data = {
@@ -89,6 +91,12 @@ bar_fig.add_trace(go.Scatter(x=treatment_means["Treatment"], y=treatment_means["
 bar_fig.update_layout(legend_title_text='Sample', height=500)
 st.plotly_chart(bar_fig, use_container_width=True)
 
-# Full data
+# Full data section
 st.subheader("📄 Full Data Preview")
-st.dataframe(df, use_container_width=True)
+with st.expander("Click to view full dataset"):
+    formatted_df = df.copy().map(lambda x: f"{x:.4g}" if isinstance(x, (float, int)) else x)
+    st.dataframe(formatted_df, use_container_width=True)
+
+# GitHub link
+st.markdown("---")
+st.markdown("[🔗 View this project on GitHub](https://github.com/lifeissad21/GHPHairProject)")
