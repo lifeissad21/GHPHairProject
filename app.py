@@ -162,12 +162,6 @@ chart = alt.Chart(df_pc).mark_bar().encode(
 
 st.altair_chart(chart, use_container_width=True)
 
-# Full data section
-st.subheader("📄 Full Data Preview")
-with st.expander("Click to view full dataset"):
-    formatted_df = df_pc.applymap(lambda x: f"{x:.4g}" if isinstance(x, (float, int)) else x)
-    st.dataframe(formatted_df, use_container_width=True)
-
 # --- Insert Microscopy Image Viewer Section Here ---
 st.markdown("---")
 st.subheader("🖼️ Microscopy Images Viewer")
