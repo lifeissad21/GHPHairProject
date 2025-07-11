@@ -3,6 +3,8 @@
 
 This project investigates how shampoos of varying pH levels affect the tensile strength of keratin-based human hair samples. Using controlled solution exposure and precise data collection, we analyze structural changes in hair subjected to different pH environments.
 
+[![Visit App](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit&logoColor=white)](https://ghphairproject.streamlit.app/)
+
 ## 📁 Project Structure
 ```
 .
